@@ -1,0 +1,24 @@
+# macOS and editors
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Node (tools/ios)
+node_modules/
+
+# Flutter plugin
+flutter/**/.dart_tool/
+flutter/**/build/
+flutter/**/pubspec.lock
+# downloaded by flutter/bbb_meeting_sdk/ios/fetch_frameworks.sh (CocoaPods integration)
+flutter/bbb_meeting_sdk/ios/Frameworks/*.xcframework
+
+# Swift Package Manager and Xcode
+**/.build/
+**/.swiftpm/
+xcuserdata/
+
+# Local SDK builds (the plugin and the docs look for these inside a checkout; never commit them)
+ios/local/
+android/maven/

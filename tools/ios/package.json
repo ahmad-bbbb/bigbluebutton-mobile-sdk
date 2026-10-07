@@ -1,0 +1,9 @@
+{
+  "name": "bbb-sdk-ios-tools",
+  "private": true,
+  "description": "Helpers for iOS host apps of the BigBlueButton meeting SDK (add the screen-share broadcast extension to an Xcode project).",
+  "type": "module",
+  "dependencies": {
+    "xcode": "^3.0.1"
+  }
+}

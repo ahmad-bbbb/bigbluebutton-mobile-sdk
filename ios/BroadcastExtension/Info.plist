@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Info.plist of the BigBlueButton Broadcast Upload Extension.
+  Template: tools/ios/add-broadcast-extension.mjs fills the placeholders in and writes the
+  result to <ios dir>/<target>/Info.plist (see docs/ios-screen-share.md).
+
+  NSExtensionPointIdentifier  makes this a ReplayKit broadcast UPLOAD extension (the picker's
+                              entry); RPBroadcastProcessModeSampleBuffer asks for raw frames.
+  RTCAppGroupIdentifier       read by SampleHandler to locate the socket the app binds; must be
+                              the same group as the app's (and be listed in the entitlements of
+                              BOTH targets, or containerURL(forSecurityApplicationGroupIdentifier:)
+                              returns nil at runtime).
+-->
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>{{DISPLAY_NAME}}</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>{{SHORT_VERSION}}</string>
+	<key>CFBundleVersion</key>
+	<string>{{BUILD_VERSION}}</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.broadcast-services-upload</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>$(PRODUCT_MODULE_NAME).SampleHandler</string>
+		<key>RPBroadcastProcessMode</key>
+		<string>RPBroadcastProcessModeSampleBuffer</string>
+	</dict>
+	<key>RTCAppGroupIdentifier</key>
+	<string>{{APP_GROUP}}</string>
+</dict>
+</plist>

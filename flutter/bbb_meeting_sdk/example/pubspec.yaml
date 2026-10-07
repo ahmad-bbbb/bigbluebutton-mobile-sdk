@@ -1,0 +1,16 @@
+name: bbb_meeting_sdk_example
+description: Host app for the bbb_meeting_sdk plugin (join URL field, Join button, event log).
+publish_to: none
+version: 1.0.0
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  bbb_meeting_sdk:
+    path: ../
+
+flutter:
+  uses-material-design: true
