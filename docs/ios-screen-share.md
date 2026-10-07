@@ -25,9 +25,11 @@ framework cannot ship an app extension, so the host app adds it once:
 
 ## Doing it with the shipped tool
 
-Steps 1 to 4 (except the background modes) are scripted for any Xcode project (Flutter
-`Runner.xcodeproj`, a React Native `<app>.xcodeproj`, a plain app project). Run the tool with
-Node.js from a clone of this repository; it takes the extension files from `ios/BroadcastExtension/`:
+Steps 1 to 4 (except the background modes) are scripted for Xcode projects whose app is the
+project's first target: Flutter's `Runner.xcodeproj`, a React Native `<app>.xcodeproj`, a new
+Xcode app project. (The tool embeds the extension into the first target, so in a project where
+another target comes first, add the extension by hand.) Run the tool with Node.js from a clone of
+this repository; it takes the extension files from `ios/BroadcastExtension/`:
 
 ```sh
 cd tools/ios && npm install && cd ../..
