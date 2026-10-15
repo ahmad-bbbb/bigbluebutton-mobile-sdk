@@ -31,10 +31,21 @@ await BbbMeetingSdk.leave();                                   // ask the runnin
 ```
 
 `BbbJoinOptions` also carries `theme`, `pictureInPicture`, `screensharePresenter`, `embedMode`,
-`largeScreenLayout` and `devLogging`; `BbbSdkConfig` (`initialize(config:)`) carries `clientType`
+`largeScreenLayout`, `devLogging` and `videoEffects`; `BbbSdkConfig` (`initialize(config:)`) carries `clientType`
 and `appVersion`. `join` throws a `PlatformException` (`already_in_meeting`, `invalid_arguments`,
 `no_activity` / `no_view_controller`, and on Android `join_failed`) instead of opening a meeting;
 `initialize` throws `no_application` on Android when there is no application context yet.
+
+### Video effects
+
+Background blur and scenes, colour filters, AR effects (face props, particles), touch-up and low
+light for the user's own camera, applied on the device before the video is encoded, so every other
+participant sees the result. The meeting UI owns them: the camera sheet shows the picker under the
+live preview and the own camera tile's long-press menu opens "Video effects" while the camera is
+on; screen share is never processed. They are on by default; `BbbJoinOptions(videoEffects: false)`
+hides the picker and never runs a frame processor. Android uses ML Kit selfie segmentation and face
+detection (Google's ML Kit libraries, which Gradle fetches from Google's Maven repository along with the SDK; their models are bundled, nothing is downloaded at runtime); iOS uses Vision and
+Core Image.
 
 ## Android host app
 
@@ -47,7 +58,8 @@ What stays in your app, in `android/app/build.gradle.kts`:
 android {
   defaultConfig {
     minSdk = 24
-    ndk { abiFilters += listOf("arm64-v8a", "x86_64") }   // the SDK ships 64-bit libraries only
+    // the SDK ships 64-bit libraries only; clear() drops the 32-bit ABI that the Flutter plugin adds
+    ndk { abiFilters.clear(); abiFilters += listOf("arm64-v8a", "x86_64") }
   }
   packaging {
     // react-android and fbjni both ship these
@@ -64,11 +76,12 @@ android {
 }
 ```
 
-The SDK's AAR (about 88 MB) carries the permissions, the meeting activity (`BbbMeetingActivity`,
+The SDK's AAR (about 79 MB) carries the permissions, the meeting activity (`BbbMeetingActivity`,
 single task, picture-in-picture) and the foreground service; nothing to add to
 `AndroidManifest.xml`. `compileSdk` 36 and Java 17. Gradle downloads the AAR from the SDK's Maven
-repository (`https://raw.githubusercontent.com/ahmad-bbbb/bigbluebutton-mobile-sdk-maven/main`);
-to use a mirror or a local copy, set `bbbSdkMavenUrl=<url>` in `android/gradle.properties`.
+repository (`https://raw.githubusercontent.com/ahmad-bbbb/bigbluebutton-mobile-sdk-maven/main`),
+and the ML Kit libraries of the video effects from Google's; to use a mirror or a local copy of
+the SDK, set `bbbSdkMavenUrl=<url>` in `android/gradle.properties`.
 Play Console: declare the foreground-service use cases microphone, media playback and media
 projection.
 
@@ -87,7 +100,7 @@ exercised yet.
   `NSPhotoLibraryAddUsageDescription`, `UIBackgroundModes` = `audio`, and
   `UIViewControllerBasedStatusBarAppearance` = `false` (the meeting UI drives the status bar through
   React Native; without it the calls are no-ops that log an error on every join).
-- The SDK's XCFrameworks are about 220 MB of zips, downloaded once and checked against pinned
+- The SDK's XCFrameworks are about 230 MB of zips, downloaded once and checked against pinned
   SHA-256 checksums. With Swift Package Manager (Flutter's default) the plugin depends on the SDK's
   Swift package (`https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk`, same version as the
   plugin), whose binary targets come from its GitHub Release. With CocoaPods (SwiftPM disabled) the

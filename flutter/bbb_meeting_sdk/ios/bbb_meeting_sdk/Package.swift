@@ -5,7 +5,7 @@ import Foundation
 import PackageDescription
 
 /// The SDK release this plugin wraps (same version as the plugin, pubspec.yaml).
-let sdkVersion: Version = "0.1.0"
+let sdkVersion: Version = "0.2.0"
 
 // Flutter opens this package through ios/Flutter/ephemeral/Packages/.packages/bbb_meeting_sdk, a
 // symlink; SwiftPM resolves relative paths against the symlink, so the local SDK package path is

@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'bbb_meeting_sdk'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'BigBlueButton meeting SDK for Flutter.'
   s.description      = <<-DESC
 Opens a BigBlueButton meeting full-screen from a join URL and reports back when the user leaves.
@@ -20,7 +20,7 @@ Opens a BigBlueButton meeting full-screen from a join URL and reports back when 
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 
   # BBBMeetingSDK + the runtime frameworks it links (React, hermesvm, Expo*, LiveKitWebRTC), about
-  # 220 MB of zips: fetched into Frameworks/ on the first `pod install` by ios/fetch_frameworks.sh
+  # 230 MB of zips: fetched into Frameworks/ on the first `pod install` by ios/fetch_frameworks.sh
   # (an SDK repository checkout's ios/local, else the SDK's GitHub Release, checked against
   # frameworks.sha256).
   if Dir.glob(File.join(__dir__, 'Frameworks', '*.xcframework')).empty?

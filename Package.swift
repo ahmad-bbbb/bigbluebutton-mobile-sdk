@@ -1,6 +1,6 @@
 // swift-tools-version:5.9
-// BigBlueButton meeting SDK 0.1.0 (Swift Package Manager). Add this repository by URL with the exact
-// version; the binary targets download the XCFrameworks attached to GitHub Release v0.1.0 and check
+// BigBlueButton meeting SDK 0.2.0 (Swift Package Manager). Add this repository by URL with the exact
+// version; the binary targets download the XCFrameworks attached to GitHub Release v0.2.0 and check
 // their pinned SHA-256 checksums.
 import PackageDescription
 
@@ -16,58 +16,58 @@ let package = Package(
     targets: [
       .binaryTarget(
         name: "BBBMeetingSDK",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/BBBMeetingSDK.xcframework.zip",
-        checksum: "f2492e41b7b4cfbb59eecb92865dd1790008e0487df7c0498ee04c5a69705d22"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/BBBMeetingSDK.xcframework.zip",
+        checksum: "8bc57b72107761f290ec731d029765369e7c62450d60557453fc21f0a58ba49a"
       ),
       .binaryTarget(
         name: "hermesvm",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/hermesvm.xcframework.zip",
-        checksum: "28f6b78ef32d44a30d50daf51efbe5643b45a56a81ae5c8f43c9e3f429f81715"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/hermesvm.xcframework.zip",
+        checksum: "8cfa7d51b5e07b15dff7591c17cb8b72b8caf5962d2be514a90e8ce48116b922"
       ),
       .binaryTarget(
         name: "React",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/React.xcframework.zip",
-        checksum: "1401ff4c4847416f08cc8f7d9a2965e1250c24b4185f829b47a61a9ff1fdad4c"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/React.xcframework.zip",
+        checksum: "c4f5cc8ad71e96bb392d1ec1c6290b7929bd5a85194aef3296ac9edb1199bba3"
       ),
       .binaryTarget(
         name: "ReactNativeDependencies",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/ReactNativeDependencies.xcframework.zip",
-        checksum: "d8d4e5c2d5415dec565ca9a8a79595d6fc31fd9dd4b137e4735aebc1a941999a"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/ReactNativeDependencies.xcframework.zip",
+        checksum: "abe0f1724c3cdf361e973ad6cc0b6f88658d5ffe48edf30b99363d03f42570e9"
       ),
       .binaryTarget(
         name: "ExpoBrownfield",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/ExpoBrownfield.xcframework.zip",
-        checksum: "67c924c7c6794a7e1d4efa8c236e1a37314cc46e07aac467175d47543ffe8869"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/ExpoBrownfield.xcframework.zip",
+        checksum: "fe2d42869e20a1ac467157e0f67847c2a5a2bb6a5acf1831998e1b87b6375471"
       ),
       .binaryTarget(
         name: "ExpoFileSystem",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/ExpoFileSystem.xcframework.zip",
-        checksum: "78c123d5e6b9d2a12adc5c6baeb14f2846e38feb328a3b7eac07afc7a2c04b91"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/ExpoFileSystem.xcframework.zip",
+        checksum: "8ee19e7826e009ae97e141b35dfc8acca430a269bab5f10e09bfdd7a10a81cf8"
       ),
       .binaryTarget(
         name: "ExpoFont",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/ExpoFont.xcframework.zip",
-        checksum: "0d3f6d83472e551d0a6868d2d9b31fc9df6cbd860c828a2a29e2655e948682a2"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/ExpoFont.xcframework.zip",
+        checksum: "7e462ba306ed62def4e992a1972e9249b78f5971fbc8202bb9e2c2b821f08b35"
       ),
       .binaryTarget(
         name: "ExpoModulesCore",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/ExpoModulesCore.xcframework.zip",
-        checksum: "01d03e0cb542c0e347b7c5a25c11b1230a7015d9c300df86ad5fade147f0ed00"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/ExpoModulesCore.xcframework.zip",
+        checksum: "c0740815acc2517cbb06dede9b5068bc7e8383cf64e4682a3d84dc696d065a21"
       ),
       .binaryTarget(
         name: "ExpoModulesWorklets",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/ExpoModulesWorklets.xcframework.zip",
-        checksum: "0e01ee83fd9d2d8cb56b4fa65a753c1aa9c7c32c62f909b83fcad1d935ff1506"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/ExpoModulesWorklets.xcframework.zip",
+        checksum: "d906d9801c0b1cdf413062896f8fd32f14e8e125b87b747f07331825a233a3dd"
       ),
       .binaryTarget(
         name: "ExpoModulesJSI",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/ExpoModulesJSI.xcframework.zip",
-        checksum: "3140503f1a48f410f1b0ab030680c892e66e8bcb25a01932f3bdedb7f42109c6"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/ExpoModulesJSI.xcframework.zip",
+        checksum: "f786b0efe8da3a43d690391050a560fbe27434b6400d061e4d5a08b81cb4d644"
       ),
       .binaryTarget(
         name: "LiveKitWebRTC",
-        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.1.0/LiveKitWebRTC.xcframework.zip",
-        checksum: "59116f424e51e25f9763cdb32a2cfc5d684f3e153a6688cabc29d6037e0ca5b8"
+        url: "https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/download/v0.2.0/LiveKitWebRTC.xcframework.zip",
+        checksum: "b58c7ea1407eadb1d1435e1d1c9d35c5c28de1a45cb9ecc86e93a708d758f26d"
       ),
     ]
 );

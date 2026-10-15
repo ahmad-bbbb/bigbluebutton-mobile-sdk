@@ -2,7 +2,7 @@ name: bbb_meeting_sdk
 description: >-
   BigBlueButton meeting SDK for Flutter. Pass a join URL, the meeting opens full-screen in the
   native SDK, and you get the leave reason back.
-version: 0.1.0
+version: 0.2.0
 homepage: https://biggerbluebutton.com/
 repository: https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/tree/main/flutter/bbb_meeting_sdk
 issue_tracker: https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/issues

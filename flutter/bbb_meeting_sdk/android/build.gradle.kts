@@ -2,7 +2,7 @@
 // Layout follows Flutter's own plugin template (flutter create --template=plugin, Flutter 3.47); the
 // Flutter Gradle plugin applies kotlin-android to this project itself.
 group = "org.bigbluebutton.bbb.flutter"
-version = "0.1.0"
+version = "0.2.0"
 
 buildscript {
     val kotlinVersion = "2.4.0"
@@ -17,7 +17,7 @@ buildscript {
     }
 }
 
-val bbbSdkVersion = "0.1.0"
+val bbbSdkVersion = "0.2.0"
 
 // The SDK's static Maven repository (github.com/ahmad-bbbb/bigbluebutton-mobile-sdk-maven), or the
 // android/maven folder of an SDK build checkout next to the plugin. Override with

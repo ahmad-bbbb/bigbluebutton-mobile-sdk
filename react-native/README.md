@@ -5,9 +5,9 @@ one full-screen component per meeting, the same contract as the native SDKs (joi
 reason out). It is a **pre-resolved source tree** of the BigBlueButton mobile client (the client's
 packages plus the bigbluebutton-html5 files it uses, with every import rewritten to a relative
 path), so the host needs neither a custom Metro resolver nor a bigbluebutton-html5 checkout. The
-three Expo native modules it uses (`@bbb-mobile/pip`, `@bbb-mobile/downloads`,
-`@bbb-mobile/sdk-host`) are separate npm packages that the main package depends on at the same
-version. All four are published on npmjs.com.
+four Expo native modules it uses (`@bbb-mobile/pip`, `@bbb-mobile/downloads`,
+`@bbb-mobile/sdk-host`, `@bbb-mobile/video-effects`) are separate npm packages that the main
+package depends on by exact version. All five are published on npmjs.com.
 
 Requirements: React Native 0.86.x, Expo modules installed in the app (`npx install-expo-modules`),
 iOS 16.4+, Android minSdk 24. The exact versions the package was built against are in
@@ -44,10 +44,10 @@ On Android that is five files:
   `android:supportsPictureInPicture="true"` (the meeting's picture-in-picture window) and
   `locale|layoutDirection` added to `android:configChanges`.
 
-npm puts the three `@bbb-mobile/*` native modules at the top level of `node_modules`, where Expo
-autolinking finds them (`ls node_modules/@bbb-mobile` lists `downloads`, `pip`, `sdk-host`). If a
-package manager nests them under the main package instead, add them to the app's dependencies at
-the main package's version.
+npm puts the four `@bbb-mobile/*` native modules at the top level of `node_modules`, where Expo
+autolinking finds them (`ls node_modules/@bbb-mobile` lists `downloads`, `pip`, `sdk-host`,
+`video-effects`). If a package manager nests them under the main package instead, add them to the
+app's dependencies at the versions the main package declares.
 
 npm installs the package's peer dependencies (the native libraries: `@livekit/react-native`,
 `@livekit/react-native-webrtc`, `expo-*`, `react-native-reanimated`, `react-native-gesture-handler`,
@@ -88,7 +88,10 @@ bare app has to add it).
 
 Then the patches in `node_modules/@bbb-mobile/bigbluebutton-mobile-sdk/patches/` (two for
 LiveKit, one for `react-native-view-shot` against React Native 0.86's prebuilt core): copy them
-into the app's `patches/` folder and run `patch-package` (postinstall).
+into the app's `patches/` folder and run `patch-package` (postinstall). Upgrading from 0.1.0: the
+LiveKit WebRTC patch gained a one-line fix in 0.2.0; copy it again, delete
+`node_modules/@livekit/react-native-webrtc` and run `npm install` so patch-package applies the new
+version.
 
 iOS: the Podfile needs Expo's autolinking `require` and `use_expo_modules!`, and the app delegate
 becomes an `ExpoAppDelegate` with `ExpoReactNativeFactory`:
@@ -108,7 +111,9 @@ Deployment target 16.4, then `pod install`; the Info.plist keys and `UIBackgroun
 
 Android: minSdk 24; the `pickFirsts` for `libc++_shared.so` / `libfbjni.so` come from the React
 Native Gradle plugin, nothing to add; the SDK's meeting foreground service is merged from
-`@bbb-mobile/sdk-host`'s manifest.
+`@bbb-mobile/sdk-host`'s manifest. `@bbb-mobile/video-effects` adds ML Kit's selfie segmentation
+and face detection (`com.google.mlkit:segmentation-selfie`, `com.google.mlkit:face-detection`) from
+Google's Maven repository, about 20 MB of native code per ABI; iOS needs nothing for the effects.
 
 TypeScript: the package ships a hand-written `index.d.ts` with the public API (`BigBlueButtonMeeting`,
 `configureBigBlueButtonMeeting`, `LeaveInfo`, the props), so a host's `tsc` does not walk the
@@ -138,9 +143,21 @@ function MeetingScreen({ url, onDone }) {
 
 `screensharePresenter` is opt-in on iOS (pass it only when the app ships the broadcast extension,
 see [docs/ios-screen-share.md](../docs/ios-screen-share.md)) and on by default on Android. Props mirror the native join options: `theme`, `pictureInPicture`, `screensharePresenter`,
-`embedMode`, `largeScreenLayout`, `devLogging`, plus `leaveSignal` (host-initiated leave) and
-`afterLeave`. Render the component full-screen and unmount it on `onLeave`. One React Native
-runtime hosts one meeting at a time.
+`embedMode`, `largeScreenLayout`, `devLogging`, `videoEffects`, plus `leaveSignal` (host-initiated
+leave) and `afterLeave`. Render the component full-screen and unmount it on `onLeave`. One React
+Native runtime hosts one meeting at a time.
+
+### Video effects
+
+Background blur and scenes, colour filters, AR effects (face props, particles), touch-up and low
+light for the user's own camera, applied on the device before the video is encoded, so every
+other participant (web client included) sees the result. The meeting UI owns them: the camera
+sheet shows the picker under the preview (the preview carries the effect before sharing starts)
+and the own camera tile's long-press menu opens "Video effects" while the camera is on. The
+selection is cleared when the meeting ends. Screen share is never processed. The native part is
+`@bbb-mobile/video-effects` (OpenGL + ML Kit on Android, Core Image + Vision on iOS).
+`videoEffects={false}` hides the picker and never attaches a frame processor; with no effect
+selected nothing runs per frame.
 
 `configureBigBlueButtonMeeting` installs the html5 global shims (`window`, `document`,
 `navigator.mediaDevices`, …) process-wide; apps that use `react-native-webrtc` must switch to

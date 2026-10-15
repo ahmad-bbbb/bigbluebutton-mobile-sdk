@@ -67,6 +67,7 @@ class BbbJoinOptions {
     this.embedMode = BbbEmbedMode.auto,
     this.largeScreenLayout = BbbLargeScreenLayout.phone,
     this.devLogging = false,
+    this.videoEffects = true,
   });
 
   /// `https://<server>/html5client/join?sessionToken=...`, or any https URL whose path ends in `/join`.
@@ -86,6 +87,11 @@ class BbbJoinOptions {
   /// Verbose client logging in logcat / the Xcode console.
   final bool devLogging;
 
+  /// Camera video effects (background blur / scenes, colour filters, AR effects, touch-up, low
+  /// light) in the camera sheet and the own camera tile's menu, applied on the device before the
+  /// camera is encoded. False hides the picker and never runs a frame processor.
+  final bool videoEffects;
+
   Map<String, Object?> toMap() => {
         'joinUrl': joinUrl,
         'meetingName': meetingName,
@@ -95,6 +101,7 @@ class BbbJoinOptions {
         'embedMode': embedMode.name,
         'largeScreenLayout': largeScreenLayout.name,
         'devLogging': devLogging,
+        'videoEffects': videoEffects,
       };
 }
 

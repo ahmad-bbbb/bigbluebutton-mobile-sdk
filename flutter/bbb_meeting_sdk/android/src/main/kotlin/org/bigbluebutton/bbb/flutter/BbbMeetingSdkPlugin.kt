@@ -156,6 +156,7 @@ class BbbMeetingSdkPlugin : FlutterPlugin, ActivityAware, MethodChannel.MethodCa
       largeScreenLayout = BbbLargeScreenLayout.entries.firstOrNull { it.wireValue == map["largeScreenLayout"] }
         ?: BbbLargeScreenLayout.PHONE,
       devLogging = map["devLogging"] as? Boolean ?: false,
+      videoEffects = map["videoEffects"] as? Boolean ?: true,
     )
   }
 

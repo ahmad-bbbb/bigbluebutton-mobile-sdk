@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.2.0
+
+Camera video effects in every SDK: background blur and scenes, colour filters, AR effects (face
+props, particles), touch-up and low light for the user's own camera, applied on the device before
+the video is sent, so everyone in the meeting sees them. They are part of the meeting UI (the
+picker sits under the camera preview, and "Video effects" is in the menu of the user's own camera
+tile), on by default, with a switch in each SDK.
+
+- Android: `org.bigbluebutton.bbb:meeting-sdk-fused-release:0.2.0` (about 79 MB, 64-bit ABIs);
+  `BbbJoinOptions(videoEffects = false)` turns the effects off. ML Kit's selfie segmentation and
+  face detection (models bundled) and the Google Play Services libraries they need are declared
+  dependencies from Google's Maven repository, not fused into the AAR, so apps that use Firebase,
+  Play Services or ML Kit themselves share them. They add about 20 MB of native code per ABI.
+- iOS: Swift package 0.2.0 (11 XCFrameworks attached to GitHub Release v0.2.0);
+  `BBBJoinOptions(videoEffects: false)` turns the effects off. They use Vision and Core Image,
+  nothing to add to the app.
+- Flutter: `bbb_meeting_sdk` 0.2.0 with `BbbJoinOptions(videoEffects: false)`.
+- React Native: `@bbb-mobile/bigbluebutton-mobile-sdk` 0.2.0 with the new native module
+  `@bbb-mobile/video-effects` 0.1.0 and the `videoEffects` prop. Upgrading from 0.1.0: run
+  `pod install`, rebuild the app, and copy the LiveKit WebRTC patch from the package's `patches/`
+  again (it gained a one-line fix).
+
 ## 0.1.0
 
 First release: the BigBlueButton native mobile client packaged as an embeddable SDK, for

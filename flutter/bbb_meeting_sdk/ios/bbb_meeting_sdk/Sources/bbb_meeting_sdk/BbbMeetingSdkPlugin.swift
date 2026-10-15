@@ -102,7 +102,8 @@ public class BbbMeetingSdkPlugin: NSObject, FlutterPlugin, FlutterStreamHandler,
       screensharePresenter: args["screensharePresenter"] as? Bool ?? false,
       embedMode: BBBEmbedMode(rawValue: args["embedMode"] as? String ?? "") ?? .auto,
       largeScreenLayout: BBBLargeScreenLayout(rawValue: args["largeScreenLayout"] as? String ?? "") ?? .phone,
-      devLogging: args["devLogging"] as? Bool ?? false
+      devLogging: args["devLogging"] as? Bool ?? false,
+      videoEffects: args["videoEffects"] as? Bool ?? true
     )
   }
 

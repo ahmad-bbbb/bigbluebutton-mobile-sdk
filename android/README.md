@@ -38,7 +38,7 @@ configurations.all {
   resolutionStrategy.force("com.facebook.fbjni:fbjni:0.7.0")
 }
 dependencies {
-  implementation("org.bigbluebutton.bbb:meeting-sdk-fused-release:0.1.0")
+  implementation("org.bigbluebutton.bbb:meeting-sdk-fused-release:0.2.0")
   // Kept outside the AAR on purpose (shared with the host app):
   implementation("com.google.android.material:material:1.12.0")
   implementation("com.google.guava:guava:33.4.0-android")
@@ -81,7 +81,7 @@ BigBlueButtonSdk.leave()                          // ask the running meeting to 
 ```
 
 `BbbJoinOptions` also carries `meetingName`, `theme` (system/light/dark), `pictureInPicture`,
-`screensharePresenter`, `embedMode`, `largeScreenLayout` and `devLogging`; `BbbSdkConfig`
+`screensharePresenter`, `embedMode`, `largeScreenLayout`, `devLogging` and `videoEffects`; `BbbSdkConfig`
 (`initialize(app, config)`) carries `clientType` and `appVersion`. The meeting runs in the SDK's own
 activity (`BbbMeetingActivity`, declared by the AAR: single task, picture-in-picture, AppCompat
 theme) — nothing to add to your manifest.
@@ -105,16 +105,29 @@ and (screen share) **media projection**.
 
 ## 5. Size
 
-The AAR is built for the 64-bit ABIs only (`arm64-v8a`, `x86_64`; about 88 MB, with a few MB of
-32-bit libraries left by prebuilt dependencies). A host's `ndk.abiFilters` or App Bundles keep
-the installed APK at roughly 55 MB per ABI. 32-bit (`armeabi-v7a`) builds of the AAR are not published.
+The AAR is built for the 64-bit ABIs only (`arm64-v8a`, `x86_64`; about 79 MB). The video effects'
+ML Kit libraries (selfie segmentation, face detection) are declared Maven dependencies that Gradle
+fetches from Google's repository; they add about 20 MB of native code per ABI
+(19 MB on arm64-v8a, 21 MB on x86_64) and 4.5 MB of models to the app. A host's
+`ndk.abiFilters` or App Bundles keep the installed APK to the 64-bit ABIs. 32-bit (`armeabi-v7a`) builds of
+the AAR are not published.
+
+## 6. Video effects
+
+Background blur and scenes, colour filters, AR effects, touch-up and low light for the user's own
+camera, applied on the device before the video is encoded. The meeting UI owns them (camera sheet
+and the own camera tile's long-press menu); nothing to add to the host. ML Kit's selfie segmentation
+and face detection are regular Maven dependencies from Google's repository, declared in the AAR's POM
+and not fused into it, with their models bundled: nothing is downloaded at runtime, and a host that
+uses Firebase, Play Services or ML Kit itself shares those libraries instead of getting duplicate
+classes. `BbbJoinOptions(videoEffects = false)` hides the picker and never attaches a frame processor.
 
 ## Host checklist
 
 Things a host app must do with the fused AAR:
 
-- **64-bit only.** The AAR carries the native libraries for `arm64-v8a` and `x86_64`; it also contains a few
-  32-bit libraries from transitive dependencies but not a complete set. Restrict the ABIs
+- **64-bit only.** The AAR carries native libraries for `arm64-v8a` and `x86_64` only; its Maven dependencies
+  (react-android, hermes-android, ML Kit) also ship 32-bit libraries, so a 32-bit split would be incomplete. Restrict the ABIs
   (`ndk { abiFilters += listOf("arm64-v8a", "x86_64") }`) or exclude the 32-bit splits, otherwise Play may deliver
   a 32-bit split that crashes on load.
 - **No minification over the SDK classes.** The fused AAR is not R8-safe. Its `proguard.txt` carries the

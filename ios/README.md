@@ -2,8 +2,10 @@
 
 `BBBMeetingSDK.xcframework` embeds the whole meeting client (React Native runtime, JS bundle and
 assets included). Your app passes a join URL; the SDK presents the meeting full-screen and reports
-back when the user leaves. Requirements: iOS 16.4+, Xcode 26.x. The frameworks are built with
-library evolution enabled, so a newer Swift compiler in the host app is fine.
+back when the user leaves. Requirements: iOS 16.4+ and Swift 6.3 or newer (0.2.0 is built with
+Xcode 27.0 and Swift 6.4; its interfaces were verified with Swift 6.3.3, older compilers are untested).
+The frameworks are built with library evolution enabled, so a newer Swift compiler in the host app
+is fine.
 
 ## 1. Add the Swift package
 
@@ -11,10 +13,10 @@ The package has one library product, `BBBMeetingSDK`, which links every framewor
 them are dynamic; Xcode embeds and signs them automatically.
 
 **By URL (recommended).** Xcode → File → Add Package Dependencies →
-`https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk`, exact version `0.1.0` (git tags `0.1.0`
-and `v0.1.0`). The repository-root [`Package.swift`](../Package.swift) points at the
+`https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk`, exact version `0.2.0` (git tags `0.2.0`
+and `v0.2.0`). The repository-root [`Package.swift`](../Package.swift) points at the
 `*.xcframework.zip` assets of GitHub Release
-[v0.1.0](https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/tag/v0.1.0) and checks
+[v0.2.0](https://github.com/ahmad-bbbb/bigbluebutton-mobile-sdk/releases/tag/v0.2.0) and checks
 their SwiftPM checksums.
 
 **Mirrored or local.** The release assets are plain zips. To host them yourself, copy the root
@@ -76,7 +78,9 @@ BigBlueButtonSDK.shared.leave()   // ask the running meeting to leave
 ```
 
 `BBBJoinOptions` also carries `meetingName`, `theme` (`.system`/`.light`/`.dark`),
-`pictureInPicture`, `screensharePresenter`, `embedMode`, `largeScreenLayout` and `devLogging`.
+`pictureInPicture`, `screensharePresenter`, `embedMode`, `largeScreenLayout`, `devLogging` and
+`videoEffects` (camera background blur / scenes, colour filters, AR effects, touch-up and low light in
+the meeting UI, on by default; Vision and Core Image, nothing to add to the host).
 `BBBSDKConfig.appVersion` defaults to the host's `CFBundleShortVersionString`.
 
 | `BBBLeaveReason` | Meaning |
