@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'bbb_meeting_sdk'
-  s.version          = '0.2.0'
+  s.version          = '0.3.0'
   s.summary          = 'BigBlueButton meeting SDK for Flutter.'
   s.description      = <<-DESC
 Opens a BigBlueButton meeting full-screen from a join URL and reports back when the user leaves.

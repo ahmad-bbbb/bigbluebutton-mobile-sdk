@@ -1,3 +1,27 @@
+## 0.3.0
+
+- The meeting client follows the current BigBlueButton 4.0 client. Shared notes are BlockNote only
+  (upstream removed Etherpad): editors edit them, everyone else sees the notes as text from the
+  server's Markdown export, refreshed when they change. Shared notes need a server on that 4.0
+  revision; an older server with Etherpad notes shows no notes text.
+- Tablets and unfolded foldables: Messages, Participants, Notes, Polls, Breakouts, Settings and the
+  other panels open as a centred popup instead of covering the screen; the presentation upload is a
+  centred dialog there. Phones are unchanged.
+- "Play video from link" plays YouTube, Vimeo and media-file links in the meeting, in sync with the
+  presenter.
+- Whiteboard: a pin keeps the drawing tools on screen.
+- Fixed: returning from a breakout room closed the meeting when the join URL was a resolved
+  sessionToken link.
+- Fixed: a session that closed before joining ended the app a minute later ("Authentication
+  timeout").
+- Fixed: screen shares were never shown to viewers on servers without the Etherpad fields.
+- Fixed: cropped rasterised slides, percent-encoded upload names, four labels shown as raw ids,
+  off-centre buttons on the error and waiting screens.
+- Removed: the disabled "Share camera as content" tile.
+- Uses BigBlueButton meeting SDK 0.3.0 (AAR
+  `org.bigbluebutton.bbb:meeting-sdk-fused-release:0.3.0`, iOS `BBBMeetingSDK` 0.3.0). The Dart API
+  is unchanged.
+
 ## 0.2.0
 
 - Camera video effects in the meeting: background blur and scenes, colour filters, AR effects
